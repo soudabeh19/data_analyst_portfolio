@@ -52,3 +52,5 @@ where continent is not null
 group by continent
 order by TotalDeathNum desc
 
+-- Time: 42:49
+
