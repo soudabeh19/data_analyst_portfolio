@@ -52,5 +52,18 @@ where continent is not null
 group by continent
 order by TotalDeathNum desc
 
--- Time: 42:49
+-- Numbers in global scale 
+select date, sum(new_cases) as global_total_cases, sum(cast(new_deaths as int)) as global_total_deaths, sum(cast(new_deaths as int))/sum(new_cases)*100 as DeathPercentage
+From CovidAnalysisProject..CovidDeaths
+where continent is not null
+Group by date
+order by 1,2
+
+-- Total Number of the cases in global scale 
+select sum(new_cases) as global_total_cases, sum(cast(new_deaths as int)) as global_total_deaths, sum(cast(new_deaths as int))/sum(new_cases)*100 as DeathPercentage
+From CovidAnalysisProject..CovidDeaths
+where continent is not null
+--Group by date
+order by 1,2
+
 
