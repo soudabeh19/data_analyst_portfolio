@@ -82,12 +82,22 @@ join CovidAnalysisProject..CovidDeaths death
 where death.continent is not null
 order by 2,3
 
--- Population vs Vaccination for each contury
+-- Population vs Vaccination for each contury per day
 select death.continent, death.location, death.date, death.population , vac.new_vaccinations
 from CovidAnalysisProject..CovidDeaths death
 join CovidAnalysisProject..CovidVaccinations vac
 	on death.location = vac.location
 	and death.date = vac.date
 where death.continent is not null
-order by 4
+order by 2,3
+
+-- Population vs Vaccination for each contury per day with partitioning 
+select death.continent, death.location, death.date, death.population , vac.new_vaccinations,
+SUM(CONVERT(int,vac.new_vaccinations)) OVER (Partition by death.location Order by death.location, death.Date)
+from CovidAnalysisProject..CovidDeaths death
+join CovidAnalysisProject..CovidVaccinations vac
+	on death.location = vac.location
+	and death.date = vac.date
+where death.continent is not null
+order by 2,3
 
