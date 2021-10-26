@@ -66,4 +66,28 @@ where continent is not null
 --Group by date
 order by 1,2
 
+-- Join CovidDeaths and CovidVaccinate tables
+select * 
+from CovidAnalysisProject..CovidVaccinations vac
+join CovidAnalysisProject..CovidDeaths death
+	on death.location = vac.location
+	and death.date = vac.date
+
+-- Population vs Vaccination 
+select death.continent, death.location, death.date, death.population ,vac.new_vaccinations 
+from CovidAnalysisProject..CovidVaccinations vac
+join CovidAnalysisProject..CovidDeaths death
+	on death.location = vac.location
+	and death.date = vac.date
+where death.continent is not null
+order by 2,3
+
+-- Population vs Vaccination for each contury
+select death.continent, death.location, death.date, death.population , vac.new_vaccinations
+from CovidAnalysisProject..CovidDeaths death
+join CovidAnalysisProject..CovidVaccinations vac
+	on death.location = vac.location
+	and death.date = vac.date
+where death.continent is not null
+order by 4
 
